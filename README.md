@@ -30,7 +30,7 @@ L’AsyncSnapshot és una captura de l’estat del Future, amb els atributs:
 data
 hasData
 connectionstate
-error
+errorr
 haserror
 FutureBuilder (És un widget)
 Té un atribut que és el Future, per a “escoltar-lo”
