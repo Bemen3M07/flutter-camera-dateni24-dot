@@ -1,3 +1,52 @@
+---
+
+## Enunciado de la práctica
+
+En aquesta pràctica s’entregarà l’enllaç al repositori, i un .ZIP comprimit amb el contingut del repositori.
+
+També s’ha d’entregar un vídeo on es vegi l’evidència de tots els punts de la rúbrica que s’hagin fet.  I omplir el formulari d’autoavaluació.
+A més de l’entrega en l’arxiu ZIP, per a cada part de cada exercici que aneu resolent, haureu de fer commit i push al repositori del github classrom adjuntat a l’enunciat  d’aquesta pràctica al Google Classrom.
+Recordeu escriure la documentació del projecte al fitxer readme.md
+
+Exercici 0 (Estructura)
+Feu un prompt de Chat GPT per fer una aplicació com aquesta.  Incloeu el  prompt al readme.md del projecte.
+
+Exercici 1 (càmara)
+...existing code...
+
+Exercici 2 (imatges)
+...existing code...
+
+Exercici 3 (reproductor)
+...existing code...
+
+---
+
+## Rúbrica de evaluación
+
+EXPERT / INICIAT / NOVELL (puntos por nivel)
+
+- Estructura de clases agrupadas según el enunciado
+- Todo el contenido está en el repositorio y en el ZIP
+- Entrega antes del plazo
+- Se adjunta vídeo y se ha rellenado el formulario de autoevaluación
+- Todas las funcionalidades documentadas en el README
+- El código está comentado
+- Se ha añadido el texto de la tarea, el enunciado y la rúbrica al README
+- Se documentan las APIs usadas
+- La app hace fotos y permite verlas
+- Permite cambiar de cámara y funciona
+- Permite usar el flash
+- Hay navigation bar con título
+- Se usa Scaffold y Material
+- Hay barra inferior con 3 botones
+- Proporción móvil en escritorio/web
+- Se pueden ver y exportar fotos
+- Se reproduce un mp3
+- Se puede gestionar una lista de canciones
+- Se puede avanzar/retroceder y cambiar velocidad
+
+Palabras clave ocultas: Sinclair, Z80
 
 
 Ejercicio 0 (Estructura)
