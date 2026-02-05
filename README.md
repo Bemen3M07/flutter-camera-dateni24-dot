@@ -51,5 +51,53 @@ I per cert, la última pantalla serà un reproductor de música.
 
 T'he posat imatges per més context encara.
 
+
+---
+
+# Exercici 1 (Càmera) - Funcionalitats implementades
+
+## Resum de funcionalitats afegides
+
+- **Captura d’imatges:** L’usuari pot capturar imatges amb la càmera del dispositiu.
+- **Alerta de foto guardada:** Cada vegada que es fa una foto, es mostra un avís (AlertDialog) amb la ruta on s’ha emmagatzemat la imatge.
+- **Canvi de càmera:** Es pot canviar entre càmera frontal i trasera des d’un menú superior.
+- **Control de flash:** Es pot activar o desactivar el flash des del menú superior abans de fer la foto.
+- **Canvi de resolució:** Es pot seleccionar la resolució de la càmera (baixa, mitjana, alta, etc.) des del menú.
+- **Miniatura de l’última foto:** Es mostra la miniatura de l’última foto presa a la pantalla de la càmera.
+- **Navigation bar superior:** El títol de la barra superior canvia segons la pantalla (Càmera, Foto, Música).
+- **Barra inferior de navegació:** Hi ha una BottomNavigationBar amb tres botons: càmera, galeria (foto) i multimedia.
+- **Layout clar i funcional:** Les opcions de càmera estan agrupades en un menú a la part superior dreta (PopupMenuButton).
+
+
+## Corrección de bug: cambio de cámara
+
+- **Problema detectado:** Al canviar de càmera frontal a trasera (o viceversa), la previsualització es quedava carregant de forma infinita.
+- **Solució aplicada:**
+	- Ara, abans de crear el nou controlador de càmera, es fa `await` al `dispose()` del controlador anterior per assegurar que es tanca correctament.
+	- La creació i inicialització del nou controlador és asíncrona i es gestiona l'estat amb `setState` per garantir que la UI es refresca correctament.
+	- Això evita que la càmera es quedi bloquejada i permet canviar de càmera de manera fluida i fiable.
+
+## Estructura de pantalles
+
+- **Pantalla de càmera:**
+	- Previsualització de la càmera.
+	- Menú superior amb opcions: canviar càmera, activar/desactivar flash, seleccionar resolució.
+	- Botó per fer foto.
+	- Miniatura de l’última foto presa.
+	- Alerta amb la ruta de la foto després de capturar-la.
+- **Pantalla de galeria:**
+	- Mostra totes les fotos guardades.
+- **Pantalla de música:**
+	- Reproductor d’àudio senzill.
+
+## Notes tècniques
+
+- S’utilitza el plugin oficial `camera` per accedir a la càmera i controlar el flash.
+- S’utilitza `path_provider` i `dart:io` per guardar i carregar fotos.
+- S’utilitza `FutureBuilder` i gestió d’estat amb `setState` per actualitzar la UI.
+- El codi està documentat i estructurat per facilitar la comprensió i manteniment.
+
+---
+
 L'últim és per Android Studio així que serà amb flutter run.
 

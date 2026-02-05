@@ -34,32 +34,34 @@ class _CamaraWidgetState extends State<CamaraWidget> {
     }
   }
 
-  void _crearControlador() {
-    _controlador?.dispose();
-    _controlador = CameraController(
-      _gestorCamaras.camaraActual,
-      _resolucion,
-      enableAudio: false,
-    );
-    _controlador!.initialize().then((_) {
+  Future<void> _crearControlador() async {
+    setState(() { _iniciando = true; });
+    try {
+      await _controlador?.dispose();
+      _controlador = CameraController(
+        _gestorCamaras.camaraActual,
+        _resolucion,
+        enableAudio: false,
+      );
+      await _controlador!.initialize();
       if (mounted) setState(() { _iniciando = false; });
-    }).catchError((e) {
+    } catch (e) {
       setState(() { _error = e.toString(); _iniciando = false; });
-    });
+    }
   }
 
-  void _cambiarCamara() {
+  Future<void> _cambiarCamara() async {
     setState(() { _iniciando = true; });
     _gestorCamaras.cambiarCamara();
-    _crearControlador();
+    await _crearControlador();
   }
 
-  void _cambiarResolucion(ResolutionPreset resol) {
+  Future<void> _cambiarResolucion(ResolutionPreset resol) async {
     setState(() {
       _resolucion = resol;
       _iniciando = true;
     });
-    _crearControlador();
+    await _crearControlador();
   }
 
   Future<void> _tomarFoto() async {
@@ -106,7 +108,9 @@ class _CamaraWidgetState extends State<CamaraWidget> {
           children: [
             IconButton(
               icon: const Icon(Icons.cameraswitch),
-              onPressed: _cambiarCamara,
+              onPressed: () {
+                _cambiarCamara();
+              },
               tooltip: 'Cambiar cámara',
             ),
             IconButton(
@@ -139,7 +143,9 @@ class _CamaraWidgetState extends State<CamaraWidget> {
                 ),
               ],
               onChanged: (res) {
-                if (res != null) _cambiarResolucion(res);
+                if (res != null) {
+                  _cambiarResolucion(res);
+                }
               },
             ),
           ],
