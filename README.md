@@ -1,103 +1,47 @@
 
-Exercici 0 (Estructura)
-Feu un prompt de Chat GPT per fer una aplicació com aquesta. Incloeu el prompt al readme.md del projecte.
 
-Bàsicament de context la app té que tenir 3 pantalles:
-1. Una és de fer foto, pot canviar de càmera frontal i trasera, tindrà un gestor de càmeres amb un array de càmeres.
-2. També tindrem una pestanya per veure les fotos.
-3. L'última pantalla serà un reproductor de música.
+Ejercicio 0 (Estructura)
+El prompt de ChatGPT me generó la base de la app con 3 pantallas: cámara, galería y reproductor de música. A partir de ahí, he ido añadiendo cosas como el uso de `Future`, `await`, y la gestión de estado para que todo funcione bien. El prompt original está aquí:
 
-La càmera tindrà una funció per canviar la resolució ex: medium, high, low, etc.
-Hem d'utilitzar el future, await i demés.
+> Haz una app Flutter con 3 pantallas: una para hacer fotos (con cambio de cámara frontal/trasera y selector de resolución), una galería para ver las fotos, y un reproductor de música. Usa el plugin camera y muestra cómo usar availableCameras, CameraController, FutureBuilder, etc.
 
-availableCameras()
-Funció del plugin de càmera que retorna un array de càmeres.
-La primera càmera és la del davant (selfie).
-La segona càmera és la del darrere.
+ Ejercicio 1 (Cámara)
+- Se puede hacer una foto con la cámara del móvil.
+- Sale un aviso (alert) cada vez que haces una foto, diciendo dónde se ha guardado.
+- Puedes cambiar entre cámara frontal y trasera desde el menú de arriba.
+- Puedes activar/desactivar el flash antes de hacer la foto.
+- Puedes elegir la resolución de la cámara (baja, media, alta, etc.).
+- Sale una miniatura de la última foto tomada.
+- El título de la barra superior cambia según la pantalla (Cámara, Foto, Música).
+- Abajo hay una barra de navegación con 3 botones: cámara, galería y multimedia.
+- Todo lo de la cámara está agrupado en un menú arriba a la derecha.
 
-CameraController: Controlador de la càmera.
-S’inicialitza amb:
-Una càmera de l’array
-Resolució (ResolutionPreset)
+Bug que encontré
+Al cambiar de cámara, a veces se quedaba cargando. Lo he arreglado haciendo `await` al `dispose()` del controlador antes de crear el nuevo, y usando bien el `setState` para refrescar la UI. Así ya no se queda pillado.
 
-Per iniciar la càmera:
-initialize() Mètode de CameraController
-CameraPreview Un cop inicialitzat el controlador, podem posar aquest widget la nostra pantalla
-initialize() Mètode de CameraController
-Retorna un Future amb la promesa d'inicialitzar la càmera.
-El future té mètode getSnapshot, que retorna un AsyncSnapshot
-L’AsyncSnapshot és una captura de l’estat del Future, amb els atributs:
-data
-hasData
-connectionstate
-errorr
-haserror
-FutureBuilder (És un widget)
-Té un atribut que és el Future, per a “escoltar-lo”
-Quan el future s’actualitza, el FutureBuilder li diu al Flutter que ha de repintar.
-Té un altre atribut que és una lambda que rep com a paràmetre el context, i l’snapshot, i en aquesta lambda decidim cóm volem pintar el widget en funció de l’estat de l’snapshot del Future (Connection State)
+ Ejercicio 2 (Imágenes)
+- Las fotos que haces se guardan en el propio dispositivo, usando `path_provider` y `dart:io`.
+- Se pueden ver todas las fotos guardadas en la galería de la app.
+- (Opcional avanzado) Se podría exportar a la galería del móvil, pero aquí solo se guardan en la app.
+- He buscado info sobre esto y he usado los plugins oficiales. 
 
-CameraPreview és el widget que mostra el que veu el sensor de la càmera
-Rep com a paràmetre el Controller
+ Ejercicio 3 (Reproductor de música)
+- Hay un reproductor de música sencillo con 3 canciones .
+- Puedes elegir la canción desde un menú desplegable.
+- Hay botones de anterior, play/pause, siguiente y aleatorio.
+- Puedes cambiar la velocidad de reproducción (0.5x, 1x, 1.5x, 2x).
+- Sale el nombre de la canción que está sonando.
+- Todo funciona con el plugin `audioplayers`.
 
-Cicle de vida
-1. initState(): Demanar permisos i encendre la càmera.
-2. build(): Mostrar la previsualització a l'usuari.
-3. dispose(): Apagar el sensor per estalviar bateria.
+ Cómo añadir más canciones
+1. Añade el archivo mp3 a la carpeta `assets/`.
+2. Decláralo en el `pubspec.yaml` bajo la sección de assets.
+3. Añade el nombre y la ruta a la lista de canciones en el código del reproductor.
 
-⚠️ El que obris al 'init', tanca-ho al 'dispose'!
-
-I per cert, la última pantalla serà un reproductor de música.
-
-T'he posat imatges per més context encara.
+he usado todo el rato el
+- Uso de `Future`, `await`, y gestión de estado con `setState` en toda la app.
+- Plugins usados: `camera`, `path_provider`, `audioplayers`.
+- El código está comentado y estructurado para que se entienda fácil.
 
 
----
-
-# Exercici 1 (Càmera) - Funcionalitats implementades
-
-## Resum de funcionalitats afegides
-
-- **Captura d’imatges:** L’usuari pot capturar imatges amb la càmera del dispositiu.
-- **Alerta de foto guardada:** Cada vegada que es fa una foto, es mostra un avís (AlertDialog) amb la ruta on s’ha emmagatzemat la imatge.
-- **Canvi de càmera:** Es pot canviar entre càmera frontal i trasera des d’un menú superior.
-- **Control de flash:** Es pot activar o desactivar el flash des del menú superior abans de fer la foto.
-- **Canvi de resolució:** Es pot seleccionar la resolució de la càmera (baixa, mitjana, alta, etc.) des del menú.
-- **Miniatura de l’última foto:** Es mostra la miniatura de l’última foto presa a la pantalla de la càmera.
-- **Navigation bar superior:** El títol de la barra superior canvia segons la pantalla (Càmera, Foto, Música).
-- **Barra inferior de navegació:** Hi ha una BottomNavigationBar amb tres botons: càmera, galeria (foto) i multimedia.
-- **Layout clar i funcional:** Les opcions de càmera estan agrupades en un menú a la part superior dreta (PopupMenuButton).
-
-
-## Corrección de bug: cambio de cámara
-
-- **Problema detectado:** Al canviar de càmera frontal a trasera (o viceversa), la previsualització es quedava carregant de forma infinita.
-- **Solució aplicada:**
-	- Ara, abans de crear el nou controlador de càmera, es fa `await` al `dispose()` del controlador anterior per assegurar que es tanca correctament.
-	- La creació i inicialització del nou controlador és asíncrona i es gestiona l'estat amb `setState` per garantir que la UI es refresca correctament.
-	- Això evita que la càmera es quedi bloquejada i permet canviar de càmera de manera fluida i fiable.
-
-## Estructura de pantalles
-
-- **Pantalla de càmera:**
-	- Previsualització de la càmera.
-	- Menú superior amb opcions: canviar càmera, activar/desactivar flash, seleccionar resolució.
-	- Botó per fer foto.
-	- Miniatura de l’última foto presa.
-	- Alerta amb la ruta de la foto després de capturar-la.
-- **Pantalla de galeria:**
-	- Mostra totes les fotos guardades.
-- **Pantalla de música:**
-	- Reproductor d’àudio senzill.
-
-## Notes tècniques
-
-- S’utilitza el plugin oficial `camera` per accedir a la càmera i controlar el flash.
-- S’utilitza `path_provider` i `dart:io` per guardar i carregar fotos.
-- S’utilitza `FutureBuilder` i gestió d’estat amb `setState` per actualitzar la UI.
-- El codi està documentat i estructurat per facilitar la comprensió i manteniment.
-
----
-
-L'últim és per Android Studio així que serà amb flutter run.
 

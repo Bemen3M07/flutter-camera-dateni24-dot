@@ -1,2 +1,0 @@
-# Añade aquí tu archivo de música para el reproductor
-# Por ejemplo, puedes poner un archivo llamado musica.mp3
