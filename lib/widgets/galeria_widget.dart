@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import '../gestor_galeria.dart';
 
+// Widget de la galería de fotos
 class GaleriaWidget extends StatefulWidget {
   const GaleriaWidget({Key? key}) : super(key: key);
 
@@ -16,10 +17,12 @@ class _GaleriaWidgetState extends State<GaleriaWidget> {
   @override
   void initState() {
     super.initState();
+    // Carga las fotos guardadas al iniciar
     _fotosFuture = _gestorGaleria.cargarFotos();
   }
 
   @override
+  // Muestra las fotos en una cuadrícula
   Widget build(BuildContext context) {
     return FutureBuilder<List<File>>(
       future: _fotosFuture,

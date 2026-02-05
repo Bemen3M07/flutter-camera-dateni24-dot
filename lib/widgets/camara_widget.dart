@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import '../gestor_camaras.dart';
 import '../gestor_galeria.dart';
 
+// Widget principal de la cámara
 class CamaraWidget extends StatefulWidget {
   const CamaraWidget({Key? key}) : super(key: key);
 
@@ -24,6 +25,7 @@ class _CamaraWidgetState extends State<CamaraWidget> {
     _inicializarCamaras();
   }
 
+  // Inicializa las cámaras disponibles
   Future<void> _inicializarCamaras() async {
     setState(() { _iniciando = true; _error = null; });
     try {
@@ -34,6 +36,7 @@ class _CamaraWidgetState extends State<CamaraWidget> {
     }
   }
 
+  // Crea y configura el controlador de la cámara
   Future<void> _crearControlador() async {
     setState(() { _iniciando = true; });
     try {
@@ -50,12 +53,14 @@ class _CamaraWidgetState extends State<CamaraWidget> {
     }
   }
 
+  // Cambia entre cámara frontal y trasera
   Future<void> _cambiarCamara() async {
     setState(() { _iniciando = true; });
     _gestorCamaras.cambiarCamara();
     await _crearControlador();
   }
 
+  // Cambia la resolución de la cámara
   Future<void> _cambiarResolucion(ResolutionPreset resol) async {
     setState(() {
       _resolucion = resol;
@@ -64,6 +69,7 @@ class _CamaraWidgetState extends State<CamaraWidget> {
     await _crearControlador();
   }
 
+  // Toma una foto y la guarda
   Future<void> _tomarFoto() async {
     if (_controlador == null || !_controlador!.value.isInitialized) return;
     try {
@@ -86,6 +92,7 @@ class _CamaraWidgetState extends State<CamaraWidget> {
 
   @override
   void dispose() {
+    // Libera la cámara al salir
     _controlador?.dispose();
     super.dispose();
   }

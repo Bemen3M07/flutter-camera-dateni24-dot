@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; // Flutter UI
 import 'screens/camara_screen.dart';
 import 'screens/galeria_screen.dart';
 import 'screens/musica_screen.dart';
@@ -7,6 +7,7 @@ void main() {
   runApp(const MiApp());
 }
 
+// App principal
 class MiApp extends StatelessWidget {
   const MiApp({Key? key}) : super(key: key);
 
@@ -23,6 +24,7 @@ class MiApp extends StatelessWidget {
   }
 }
 
+// Pantalla con la barra inferior y navegación
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -32,6 +34,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _indiceActual = 0;
+  // Lista de pantallas: cámara, galería, música
   final List<Widget> _pantallas = const [
     CamaraScreen(),
     GaleriaScreen(),
@@ -41,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Cambia de pantalla según el botón pulsado
       body: _pantallas[_indiceActual],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _indiceActual,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+// Widget del reproductor de música
 class ReproductorMusicaWidget extends StatefulWidget {
   const ReproductorMusicaWidget({Key? key}) : super(key: key);
 
@@ -10,7 +11,7 @@ class ReproductorMusicaWidget extends StatefulWidget {
 
 
 class _ReproductorMusicaWidgetState extends State<ReproductorMusicaWidget> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioPlayer _audioPlayer = AudioPlayer(); // Controla la música
   bool _reproduciendo = false;
   Duration _duracion = Duration.zero;
   Duration _posicion = Duration.zero;
@@ -18,6 +19,7 @@ class _ReproductorMusicaWidgetState extends State<ReproductorMusicaWidget> {
   int _cancionActual = 0;
   bool _aleatorio = false;
 
+  // Lista de canciones
   final List<Map<String, String>> _canciones = [
     {'nombre': 'Canción 1', 'archivo': 'assets/canco1.mp3'},
     {'nombre': 'Canción 2', 'archivo': 'assets/canco2.mp3'},
@@ -26,6 +28,7 @@ class _ReproductorMusicaWidgetState extends State<ReproductorMusicaWidget> {
 
   @override
   void initState() {
+    // Configura los listeners del reproductor
     super.initState();
     _audioPlayer.onDurationChanged.listen((d) {
       setState(() { _duracion = d; });
@@ -47,6 +50,7 @@ class _ReproductorMusicaWidgetState extends State<ReproductorMusicaWidget> {
     super.dispose();
   }
 
+  // Reproduce o pausa la canción
   Future<void> _playPause() async {
     if (_reproduciendo) {
       await _audioPlayer.pause();
@@ -56,6 +60,7 @@ class _ReproductorMusicaWidgetState extends State<ReproductorMusicaWidget> {
     }
   }
 
+  // Cambia de canción
   Future<void> _cambiarCancion(int index) async {
     setState(() {
       _cancionActual = index;
@@ -67,6 +72,7 @@ class _ReproductorMusicaWidgetState extends State<ReproductorMusicaWidget> {
     await _audioPlayer.play(AssetSource(_canciones[_cancionActual]['archivo']!.replaceFirst('assets/', '')));
   }
 
+  // Va a la siguiente canción (o aleatoria)
   Future<void> _siguienteCancion({bool auto = false}) async {
     int siguiente;
     if (_aleatorio) {
@@ -81,12 +87,14 @@ class _ReproductorMusicaWidgetState extends State<ReproductorMusicaWidget> {
     if (!auto) await _audioPlayer.resume();
   }
 
+  // Va a la canción anterior
   Future<void> _anteriorCancion() async {
     int anterior = (_cancionActual - 1 + _canciones.length) % _canciones.length;
     await _cambiarCancion(anterior);
     await _audioPlayer.resume();
   }
 
+  // Cambia la velocidad de reproducción
   Future<void> _cambiarVelocidad(double v) async {
     setState(() { _velocidad = v; });
     await _audioPlayer.setPlaybackRate(_velocidad);
